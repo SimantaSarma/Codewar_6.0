@@ -1,0 +1,70 @@
+<% layout("/layouts/boilerplate") -%>
+
+    <style>
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #333;
+        }
+    </style>
+
+    <body>
+        <div class="breadcrumb">
+            <a href="/products">Home</a> &gt; <a href="/products">Products</a> &gt; Product Details
+        </div>
+
+        <main>
+            <section class="product-details-container">
+                <div class="product-image">
+                    <img src="<%= product.image_url %>" alt="<%= product.name %>">
+                </div>
+                <div class="product-info">
+                    <h1>
+                        <%= product.name %>
+                    </h1>
+                    <p class="price">$<%= product.price %>
+                    </p>
+                    <p class="stock">
+                        <%= product.stock> 0 ? 'In Stock' : 'Out of Stock' %>
+                    </p>
+                    <p class="description">
+                        <%= product.description %>
+                    </p>
+                    <section class="payment-method">
+                        <form action="/products/<%= product._id %>/order" method="POST" onsubmit="return confirmOrder()">
+                            <label for="quantity"><b>Quantity</b>:</label>
+                            <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
+                            <label>
+                                <h2 class="mb-2">Payment Method</h2>
+                                <input type="radio" name="paymentMethod" value="COD" checked> <b>Cash on Delivery</b>
+                            </label><br><br>
+                            <button type="submit" class="btn-primary">Place Order</button>
+                        </form>
+                    </section>
+                </div>
+            </section>
+
+            <section class="reviews-section">
+                <h2>Customer Reviews</h2>
+                <p>No reviews yet. Be the first to review this product!</p>
+            </section>
+
+            <section class="similar-products">
+                <h2>Similar Products</h2>
+                <p>Coming soon...</p>
+            </section>
+        </main>
+
+        <script>
+            function confirmOrder() {
+                return confirm("Are you sure you want to place this order?");
+            }
+        </script>
+    </body>

@@ -1,0 +1,16 @@
+<header class="navbar">
+    <nav>
+        <a class="navbar-brand logo" href="/listings">RentX</a>
+        <a href="/listings">Listings</a>
+        <a href="/listings/new">New Listing</a>
+    </nav>
+
+    <div class="auth-links">
+        <% if (currentUser) { %>
+            <!-- ✅ Ensure logout option is visible -->
+            <a href="/user/logout">Logout</a>
+            <% } else { %>
+                <a href="/user/login">Login</a>
+                <% } %>
+    </div>
+</header>

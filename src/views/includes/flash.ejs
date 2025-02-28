@@ -1,0 +1,20 @@
+
+<!-- WITH condiion -->
+ <% if(success && success.length) { %>
+    <div class="row">
+        <div class="col-6 offset-3 mt-3 alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+            <strong><%= success %></strong>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+<% } %>
+
+<!-- for error -->
+ <% if(error && error.length) { %>
+    <div class="row">
+        <div class="col-6 offset-3 mt-3 alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+            <strong><%= error %></strong>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+<% } %>

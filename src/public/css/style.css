@@ -1,0 +1,371 @@
+/* General Styles */
+body {
+    font-family: "Playfair Display", serif;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #faf9f7;
+    color: #2c2c2c;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Navbar */
+.navbar {
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #1a1a1a;
+    color: #fdf9f3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    color: #fdf9f3;
+    margin-left: 1.5rem;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: #d4af37;
+}
+
+.logo {
+    font-size: 1.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    color: #fdf9f3;
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background: #d4af37;
+    color: #1a1a1a;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background: #c09630;
+    color: #fdf9f3;
+}
+
+/* listing Listing */
+.listing-listing {
+    padding: 3rem 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.listing-listing h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.5rem;
+    color: #2c2c2c;
+    letter-spacing: 1px;
+}
+
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* listing Card */
+.listing-card {
+    display: flex;
+    align-items: stretch;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.listing-card img {
+    width: 130px;
+    height: auto;
+    object-fit: cover;
+}
+
+.listing-card-content {
+    padding: 1.1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.listing-card-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: #2c2c2c;
+}
+
+.listing-card-content p {
+    margin: 0.5rem 0;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+.btn-add-to-cart {
+    background: #000;
+    color: #fff;
+    padding: 0.8rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+.btn-add-to-cart:hover {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+/* Footer */
+/* Footer adjustments */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+    color: #fdf9f3;
+    font-size: 1rem;
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+/* Reviews and Similar listings */
+.reviews-section,
+.similar-listings {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.reviews-section h2,
+.similar-listings h2 {
+    font-size: 2rem;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb {
+    margin: 1rem 2rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: #1a1a1a;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: #d4af37;
+}
+
+/* listing Details Section */
+.listing-details-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.listing-image {
+    flex: 1 1 40%;
+    max-width: 500px;
+}
+
+.listing-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.listing-info {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-info h1 {
+    font-size: 2.5rem;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+}
+
+.listing-info .price {
+    font-size: 1.8rem;
+    color: #d4af37;
+    margin-bottom: 1rem;
+}
+
+.listing-info .stock {
+    font-size: 1.1rem;
+    color: #2c2c2c;
+    margin-bottom: 1.5rem;
+}
+
+.listing-info .description {
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.btn-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #d4af37;
+    color: #1a1a1a;
+}
+
+.btn-primary:hover {
+    background: #c09630;
+    color: #fdf9f3;
+}
+
+.btn-secondary {
+    background: #2c2c2c;
+    color: #fdf9f3;
+}
+
+.btn-secondary:hover {
+    background: #1a1a1a;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    height: 650px;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Title */
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #2c2c2c;
+    letter-spacing: 1px;
+}
+
+/* Form Labels */
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+/* Form Inputs */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #d4af37;
+    outline: none;
+}
+
+/* Textarea */
+.form-group textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* Submit Button */
+.btn-submit {
+    display: block;
+    position: relative;
+    top: 2rem;
+    width: 100%;
+    padding: 0.8rem;
+    background: #d4af37;
+    color: #1a1a1a;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+
+.btn-submit:hover {
+    background: #c09630;
+    color: #fff;
+}
