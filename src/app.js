@@ -82,7 +82,7 @@ app.use("/listings/rent", rentRouter);
 // ✅ Handle 404 Errors (Unknown Routes)
 // ✅ Handle 404 Errors (Unknown Routes)
 app.all("*", (req, res) => {
-    return res.status(404).json(new ApiResponse(404, null, "Page not found"));
+    return res.status(404).json(new apiResponse(404, null, "Page not found"));
 });
 
 // ✅ Global Error Handler

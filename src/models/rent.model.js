@@ -20,6 +20,11 @@ const rentSchema = new mongoose.Schema(
         startDate: { type: Date, required: true },
         endDate: { type: Date, required: true },
         totalAmount: { type: Number, required: true }, // pricePerDay * days
+        paymentMethod: {
+            type: String,
+            enum: ["cod", "razorpay"], // ✅ Added enum validation
+            default: "cod"
+        },
         status: {
             type: String,
             enum: ["pending", "approved", "rejected", "completed"],

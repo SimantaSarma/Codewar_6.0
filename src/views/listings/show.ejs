@@ -26,7 +26,8 @@
                             <span class="badge text-bg-danger">Not Available</span>
                             <% } %>
                                 <div class="btn-container">
-                                    <a href="/listings/<%= listing._id %>/checkout"><button class="btn-secondary">Rent
+                                    <a href="/listings/rent/<%= listing._id %>/checkout"><button
+                                            class="btn-secondary">Rent
                                             listing</button></a>
                                     <!-- delete listing when user is the owner -->
                                     <% if (currentUser && listing.user &&

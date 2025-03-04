@@ -1,70 +1,146 @@
 <% layout("/layouts/boilerplate") -%>
 
     <style>
-        input[type="number"] {
-            width: 50px;
-            padding: 5px;
-            font-size: 1rem;
+        .listing-details-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .listing-image img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .listing-info {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .text-bg-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .text-bg-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .rent-form {
+            margin-top: 20px;
+            padding: 15px;
             border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        label {
-            font-size: 1rem;
-            color: #333;
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 
     <body>
+        <!-- Breadcrumb Navigation -->
         <div class="breadcrumb">
-            <a href="/products">Home</a> &gt; <a href="/products">Products</a> &gt; Product Details
+            <a href="/listings">Home</a> &gt;
+            <a href="/listings">Listings</a> &gt;
+            Listing Details
         </div>
 
         <main>
-            <section class="product-details-container">
-                <div class="product-image">
-                    <img src="<%= product.image_url %>" alt="<%= product.name %>">
+            <!-- Listing Details -->
+            <section class="listing-details-container">
+                <div class="listing-image">
+                    <img src="<%= listing.image %>" alt="<%= listing.title %>">
                 </div>
-                <div class="product-info">
+                <div class="listing-info">
                     <h1>
-                        <%= product.name %>
+                        <%= listing.title %>
                     </h1>
-                    <p class="price">$<%= product.price %>
+                    <p class="price"><strong>Price per day:</strong> $<%= listing.pricePerDay %>
                     </p>
-                    <p class="stock">
-                        <%= product.stock> 0 ? 'In Stock' : 'Out of Stock' %>
-                    </p>
-                    <p class="description">
-                        <%= product.description %>
-                    </p>
-                    <section class="payment-method">
-                        <form action="/products/<%= product._id %>/order" method="POST" onsubmit="return confirmOrder()">
-                            <label for="quantity"><b>Quantity</b>:</label>
-                            <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
-                            <label>
-                                <h2 class="mb-2">Payment Method</h2>
-                                <input type="radio" name="paymentMethod" value="COD" checked> <b>Cash on Delivery</b>
-                            </label><br><br>
-                            <button type="submit" class="btn-primary">Place Order</button>
-                        </form>
-                    </section>
+
+                    <!-- Availability Badge -->
+                    <% if (listing.available) { %>
+                        <span class="badge text-bg-success">Available</span>
+                        <% } else { %>
+                            <span class="badge text-bg-danger">Not Available</span>
+                            <% } %>
+
+                                <p class="description">
+                                    <%= listing.description %>
+                                </p>
+
+                                <!-- Rent Form -->
+                                <section class="rent-form">
+                                    <h2>Rent This Listing</h2>
+                                    <form action="/listings/rent/<%= listing._id %>" method="POST"
+                                        onsubmit="return confirmOrder()">
+                                        <!-- Start Date -->
+                                        <label for="startDate"><b>Start Date:</b></label>
+                                        <input type="date" id="startDate" name="startDate" required>
+
+                                        <!-- End Date -->
+                                        <label for="endDate"><b>End Date:</b></label>
+                                        <input type="date" id="endDate" name="endDate" required>
+
+                                        <!-- Payment Method -->
+                                        <label for="paymentMethod"><b>Payment Method:</b></label>
+                                        <select id="paymentMethod" name="paymentMethod" required>
+                                            <option value="COD">Cash on Delivery</option>
+                                            <!-- <option value="Credit Card">Online Pay</option> -->
+                                        </select>
+
+                                        <button type="submit">Request to Rent</button>
+                                    </form>
+                                </section>
                 </div>
             </section>
 
+            <!-- Reviews Section -->
             <section class="reviews-section">
                 <h2>Customer Reviews</h2>
-                <p>No reviews yet. Be the first to review this product!</p>
+                <p>No reviews yet. Be the first to review this listing!</p>
             </section>
 
-            <section class="similar-products">
-                <h2>Similar Products</h2>
+            <!-- Similar Listings -->
+            <section class="similar-listings">
+                <h2>Similar Listings</h2>
                 <p>Coming soon...</p>
             </section>
         </main>
 
         <script>
             function confirmOrder() {
-                return confirm("Are you sure you want to place this order?");
+                return confirm("Are you sure you want to place this rent request?");
             }
         </script>
     </body>

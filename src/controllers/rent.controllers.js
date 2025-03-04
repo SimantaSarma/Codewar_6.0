@@ -9,75 +9,88 @@ const { throwDeprecation } = require("process");
 const mongoose = require("mongoose");
 
 
-// ✅ Create Rent Request
+//checkout
+const checkOut = asyncHandler(async (req, res) => {
+    try {
+        const { itemId } = req.params;
+        const listing = await Listing.findById(itemId);
+        if (!listing) {
+            return res.status(404).json(new apiError(404, "Listing not found"));
+        }
+        res.render("listings/checkout.ejs", { listing });
+    } catch (error) {
+        console.error("❌ Error rendering checkout page:", error);
+        res.status(500).json(new apiError(500, "Failed to render checkout page"));
+    }
+})
+
 const createRentRequest = asyncHandler(async (req, res) => {
     try {
-        const { startDate, endDate } = req.body;
-        const { rentId } = req.params;
+        console.log("🔍 Request Body:", req.body); // Debugging
 
-        // Validate input
+        const { startDate, endDate, paymentMethod: rawPaymentMethod } = req.body;
+        const { itemId } = req.params;
+
+        console.log("🔍 itemId:", itemId); // Debugging
+
         if (!startDate || !endDate) {
-            return res.status(400).json({ statusCode: 400, message: "Start date and end date are required" });
+            return res.status(400).json(new apiError(400, "Start date and end date are required"));
         }
 
         const start = new Date(startDate);
         const end = new Date(endDate);
 
-        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-            return res.status(400).json({ statusCode: 400, message: "Invalid date format" });
+        if (isNaN(start.getTime()) || isNaN(end.getTime()) || start >= end) {
+            return res.status(400).json(new apiError(400, "Invalid date range"));
         }
 
-        if (start >= end) {
-            return res.status(400).json({ statusCode: 400, message: "End date must be after start date" });
+        const listing = await Listing.findById(itemId);
+        if (!listing) return res.status(404).json(new apiError(404, "Listing not found"));
+
+        if (!listing.pricePerDay) {
+            return res.status(400).json(new apiError(400, "Listing price per day is missing"));
         }
 
-        // Find the listing
-        const listing = await Listing.findById(rentId);
-        if (!listing) {
-            return res.status(404).json({ statusCode: 404, message: "Listing not found" });
-        }
-        console.log("✅ Listing found:", listing);
-
-        // Prevent self-renting
         if (listing.owner.toString() === req.user._id.toString()) {
-            return res.status(400).json({ statusCode: 400, message: "You cannot rent your own listing" });
+            return res.status(400).json(new apiError(400, "You cannot rent your own listing"));
         }
 
-        // Calculate rental days
+        // ✅ Convert paymentMethod to lowercase and validate
+        const paymentMethod = rawPaymentMethod?.toLowerCase();
+        const validPaymentMethods = ["cod", "credit_card", "paypal", "bank_transfer"];
+        if (!validPaymentMethods.includes(paymentMethod)) {
+            return res.status(400).json(new apiError(400, "Invalid payment method"));
+        }
+
         const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
         const totalAmount = listing.pricePerDay * days;
 
-        // Check for overlapping rentals
         const existingRent = await Rent.findOne({
-            item: rentId,
+            item: itemId,
             status: { $in: ["pending", "approved"] },
-            $or: [
-                { startDate: { $lt: end, $gte: start } },
-                { endDate: { $gt: start, $lte: end } },
-            ],
+            $or: [{ startDate: { $lt: end }, endDate: { $gt: start } }],
         });
 
         if (existingRent) {
-            return res.status(400).json({ statusCode: 400, message: "This item is already booked for the selected dates" });
+            return res.status(400).json(new apiError(400, "Item already booked for selected dates"));
         }
 
-        // Create the rent request
         const rentRequest = await Rent.create({
-            item: rentId,
+            item: itemId,
             renter: req.user._id,
             owner: listing.owner,
             startDate: start,
             endDate: end,
             totalAmount,
+            paymentMethod,
             status: "pending",
         });
 
-        console.log("✅ Rent request created:", rentRequest);
-
-        res.status(201).json(new apiResponse(201, rentRequest, "Rent request created successfully"));
+        req.flash("success", "Rent request created successfully");
+        return res.redirect(`/listings/${itemId}`);
     } catch (error) {
         console.error("❌ Error creating rent request:", error);
-        res.status(500).json({ statusCode: 500, message: error.message || "Failed to create rent request" });
+        return res.status(500).json(new apiError(500, "Failed to create rent request"));
     }
 });
 
@@ -118,24 +131,17 @@ const updateRentStatus = asyncHandler(async (req, res) => {
 });
 
 
-// ✅ Get All Rent Requests (Admin/Owner)
+// 📌 Get All Rent Requests (Admin/Owner)
 const getAllRentRequests = asyncHandler(async (req, res) => {
-    try {
-        // If user is admin, show all rent requests
-        let filter = {};
-        if (req.user.role !== "admin") {
-            filter = { owner: req.user._id };
-        }
+    let filter = req.user.role === "admin" ? {} : { owner: req.user._id };
 
-        const rentRequests = await Rent.find(filter).populate("renter owner", "name email title");
+    const rentRequests = await Rent.find(filter)
+        .populate("renter owner", "name email")
+        .populate("item", "title pricePerDay image");
 
-        console.log(`✅ Found ${rentRequests.length} rent requests`);
-        res.status(200).json(new apiResponse(200, rentRequests, "All rent requests fetched successfully"));
-    } catch (error) {
-        console.error("❌ Error fetching rent requests:", error);
-        res.status(500).json({ statusCode: 500, message: error.message || "Failed to fetch rent requests" });
-    }
+    res.render("users/rentRequests.ejs", { rentRequests, user: req.user });
 });
+
 
 // ✅ Get User's Rent Requests
 const getUserRentRequests = asyncHandler(async (req, res) => {
@@ -193,6 +199,22 @@ const completeRent = asyncHandler(async (req, res) => {
     }
 });
 
+// ✅ Rent Details Page
+const getRentDetailsPage = asyncHandler(async (req, res) => {
+    try {
+        const { rentId } = req.params;
+        const rentRequest = await Rent.findById(rentId).populate("item renter owner");
+
+        if (!rentRequest) {
+            return res.render("error", { message: "Rent request not found", statusCode: 404 });
+        }
+
+        res.render("rent/details", { rentRequest });
+    } catch (error) {
+        console.error("❌ Error fetching rent details:", error);
+        res.render("error", { message: "Failed to fetch rent details", statusCode: 500 });
+    }
+});
 
 
 module.exports = {
@@ -200,5 +222,7 @@ module.exports = {
     updateRentStatus,
     getAllRentRequests,
     getUserRentRequests,
-    completeRent
+    completeRent,
+    checkOut,
+    getRentDetailsPage,
 };
