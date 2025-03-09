@@ -1,0 +1,214 @@
+.navbar .left {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Space between brand name and add-product button */
+}
+
+.navbar .add-product a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.navbar .add-product a:hover {
+  background-color: #8d8d8d; /* Darker gold on hover */
+}
+
+.navbar .auth-links {
+  display: flex;
+  gap: 20px; /* Space between login and logout */
+  margin-left: auto; /* Push auth-links to the right */
+}
+.product-list {
+  padding-top: 80px; /* Adjust for fixed navbar */
+  margin: 30px;
+}
+
+.product-list h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1d3557; /* Deep blue */
+  margin-bottom: 30px;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-table th,
+.product-table td {
+  padding: 15px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.product-table th {
+  background-color: #f8f8f8; /* Light gray background */
+  color: #1d3557; /* Deep blue */
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.product-table td {
+  background-color: #fafafa;
+  color: #333;
+}
+
+.product-table tr:nth-child(even) td {
+  background-color: #f0f0f0; /* Light gray for alternate rows */
+}
+
+.product-table tr:hover td {
+  background-color: #f1f1f1; /* Hover effect for rows */
+}
+
+.product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.btns {
+  padding: 8px 15px;
+  width: 5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-table th,
+  .product-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .product-table {
+    font-size: 14px;
+  }
+
+  .product-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Stack navbar items vertically on small screens */
+  .navbar .left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px; /* Smaller gap between elements */
+  }
+
+  /* Adjust auth-links to be stacked as well */
+  .navbar .auth-links {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0;
+  }
+
+  /* Adjust navbar padding on small screens */
+  .navbar {
+    padding: 15px 10px;
+  }
+
+  /* Adjust table layout for small screens */
+  .product-table {
+    font-size: 12px;
+  }
+
+  .product-list h2 {
+    font-size: 24px;
+  }
+
+  .product-list {
+    margin: 20px;
+    padding-top: 100px; /* Adjust for fixed navbar */
+  }
+}
+
+/* Further responsive improvements for very small screens */
+@media (max-width: 480px) {
+  .navbar .brand-name {
+    font-size: 20px;
+  }
+
+  .navbar .add-product a {
+    font-size: 14px;
+    padding: 6px 15px;
+  }
+
+  .navbar .auth-links a {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 8px;
+  }
+
+  .product-image {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Form Container */
+.form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 50px auto;
+}
+
+/* Form Title */
+.form-title {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* Label Styles */
+.form-group label {
+  font-weight: 600;
+  color: #555;
+}
+
+/* Input & Textarea Styling */
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+/* update */
+/* Image Preview */
+.preview-image {
+    max-width: 250px;
+    height: auto;
+    margin: 10px 0;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.placeholder-image {
+    max-width: 250px;
+    height: auto;
+    margin: 10px 0;
+    display: block;
+    opacity: 0.5;
+}

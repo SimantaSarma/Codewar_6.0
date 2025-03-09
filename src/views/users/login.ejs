@@ -1,0 +1,82 @@
+<% layout("/layouts/boilerplate") -%>
+
+    <div class="frm_container row">
+        <div class="col-md-4 offset-md-4 frm_box">
+            <!-- Toggle Buttons -->
+            <div class="toggle">
+                <button id="login-toggle" class="active">Login</button>
+                <button id="register-toggle">Register</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" class="form needs-validation" method="POST" action="/user/login" novalidate>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="input-group form-group">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Enter your username"
+                                class="form-control" required>
+                            <div class="invalid-feedback">Please enter a valid username.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="input-group form-group">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" id="login-password" name="password" placeholder="Enter your password"
+                                class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn">Login</button>
+                </div>
+                <p class="small-text">Don't have an account? <span id="switch-to-register">Register</span></p>
+            </form>
+
+            <!-- REGISTRATION FORM -->
+            <form id="register-form" class="form hidden" method="POST" action="/user/register">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="input-group form-group">
+                            <label for="register-name" class="form-label">Name</label>
+                            <input type="text" id="register-name" name="username" placeholder="Enter your name"
+                                class="form-control" required>
+                            <div class="invalid-feedback">Please enter your name.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="input-group form-group">
+                            <label for="register-email" class="form-label">Email</label>
+                            <input type="email" id="register-email" name="email" placeholder="Enter your email"
+                                class="form-control" required>
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group form-group">
+                            <label for="register-password" class="form-label">Password</label>
+                            <input type="password" id="register-password" name="password"
+                                placeholder="Enter your password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group form-group">
+                            <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" id="register-confirm-password" placeholder="Confirm your password"
+                                class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn">Register</button>
+                </div>
+                <p class="small-text">Already have an account? <span id="switch-to-login">Login</span></p>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,75 @@
+<% layout("layouts/boilerplate") %>
+
+    <body>
+        <div class="hero">
+            <div class="hero-content">
+                <% if (!currentUser) { %>
+                    <!-- For guests -->
+                    <h1>Welcome to RentX</h1>
+                    <p>Your one-stop destination for amazing rentals.</p>
+                    <a href="#listings" class="btn-primary">Rent Now</a>
+                    <% } else if (!currentUser.isAdmin) { %>
+                        <!-- For logged-in users (non-admin) -->
+                        <h1>Welcome to RentX</h1>
+                        <p>Your one-stop destination for amazing listings on rent.</p>
+                        <a href="#listings" class="btn-primary">Shop Now</a>
+                        <% } else { %>
+                            <!-- For admin users -->
+                            <h1>Welcome Back, Admin!</h1>
+                            <p>Manage your Listings, Rents, and Users here.</p>
+                            <a href="/adminDashboard" class="btn-primary">Dashboard</a>
+                            <% } %>
+            </div>
+        </div>
+
+        <div id="listings" class="listing-listing">
+            <h2>Featured Listings</h2>
+            <div class="listing-grid">
+                <% for (let listing of listings) { %> <!-- ✅ FIXED VARIABLE NAME -->
+                    <div class="listing-card">
+                        <img src="<%= listing.image %>" alt="<%= listing.name %>">
+                        <div class="listing-card-content">
+                            <h3>
+                                <% if (currentUser && currentUser.isAdmin) { %>
+                                    <%= listing.name %>
+                                        <% } else { %>
+                                            <a href="/listings/<%= listing._id %>">
+                                                <%= listing.title %>
+                                            </a>
+                                            <% } %>
+                            </h3>
+                            <!-- description -->
+                            <p>
+                                <%= listing.description %>
+                                    <p>Price: $<%= listing.pricePerDay %>
+                                    </p>
+                                    <!-- is available -->
+                                    <% if (listing.available) { %>
+                                        <span class="badge text-bg-success">Available</span>
+                                        <% } else { %>
+                                            <span class="badge text-bg-danger">Not Available</span>
+                                            <% } %>
+
+                                                <!-- If user is admin, show 'View Info' -->
+                                                <% if (currentUser && currentUser.isAdmin) { %>
+                                                    <a href="/admin/listings/<%= listing._id %>"
+                                                        class="badge text-bg-dark">View
+                                                        Info</a>
+                                                    <% } else if (currentUser) { %>
+                                                        <!-- Logged-in user (non-admin) -->
+                                                        <form action="/cart/add" method="POST">
+                                                            <input type="hidden" name="listingId"
+                                                                value="<%= listing._id %>">
+                                                            <button class="btn-primary">Add to Cart</button>
+                                                        </form>
+                                                        <% } else { %>
+                                                            <!-- Guest (not logged in) -->
+                                                            <a href="/login" class="btn-primary">Log in to rent the
+                                                                listing</a>
+                                                            <% } %>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+    </body>
