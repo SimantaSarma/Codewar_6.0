@@ -3,5 +3,9 @@
 
 # Ignore node modules
 node_modules/
+<<<<<<< HEAD
 /.vscode
 .vercel
+=======
+/.vscode
+>>>>>>> rentx/main
