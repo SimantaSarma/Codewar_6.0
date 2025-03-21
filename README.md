@@ -140,6 +140,9 @@ This project is licensed under the **MIT License**.
 📧 Email: [dipexplorerid23@gmail.com](mailto:dipexplorerid23@gmail.com)  
 🔗 GitHub: [dip](https://github.com/dipexplorer)  
 
+
+📧 Email: [dipexplorerid23@gmail.com](mailto:simantasarma79@gmail.com)  
+🔗 GitHub: [dip](https://github.com/simantasarma) 
 ---
 
 ### 🔥 Happy Coding! 🚀  
