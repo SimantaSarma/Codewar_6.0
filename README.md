@@ -141,8 +141,8 @@ This project is licensed under the **MIT License**.
 🔗 GitHub: [dip](https://github.com/dipexplorer)  
 
 
-📧 Email: [dipexplorerid23@gmail.com](mailto:simantasarma79@gmail.com)  
-🔗 GitHub: [dip](https://github.com/simantasarma) 
+📧 Email: [simantasarma79@gmail.com](mailto:simantasarma79@gmail.com)  
+🔗 GitHub: [simanta](https://github.com/simantasarma) 
 ---
 
 ### 🔥 Happy Coding! 🚀  
